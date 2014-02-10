@@ -61,7 +61,7 @@ class JointVelocityController(SingleJointController):
         angle = 0
         
         if(speed == 0):
-            mcv = (self.motor_id, self.pos_rad_to_raw(joint_state.current_pos))
+            mcv = (self.motor_id, self.pos_rad_to_raw(self.joint_state.current_pos))
         else:
             if(speed > 0):
                 angle = self.max_angle
