@@ -59,15 +59,17 @@ class JointVelocityController(SingleJointController):
     def process_command(self, msg):
         speed = msg.data
         angle = 0
-        if(speed > 0):
-            angle = self.max_angle
-        elif (speed < 0):
-            angle = self.min_angle
+        
+        if(speed == 0):
+            mcv = (self.motor_id, self.pos_rad_to_raw(joint_state.current_pos))
         else:
-            raise NotImplementedError
+            if(speed > 0):
+                angle = self.max_angle
+            elif (speed < 0):
+                angle = self.min_angle
 
-        self.set_speed(abs(speed))
-
-        mcv = (self.motor_id, self.pos_rad_to_raw(angle))
+            self.set_speed(abs(speed))
+            mcv = (self.motor_id, self.pos_rad_to_raw(angle))
+        
         self.dxl_io.set_multi_position([mcv])
 
