@@ -55,14 +55,19 @@ from dynamixel_msgs.msg import JointState
 class JointVelocityController(SingleJointController):
     def __init__(self, dxl_io, controller_namespace, port_namespace):
         SingleJointController.__init__(self, dxl_io, controller_namespace, port_namespace)
+        self.last_speed = 0
+        self.hold_pos = None
 
     def process_command(self, msg):
         speed = msg.data
         angle = 0
         
         if(speed == 0):
-            mcv = (self.motor_id, self.pos_rad_to_raw(self.joint_state.current_pos))
+            if self.hold_pos is None:
+                self.hold_pos = self.joint_state.current_pos
+            mcv = (self.motor_id, self.pos_rad_to_raw(self.hold_pos))
         else:
+            self.hold_pos = None
             if(speed > 0):
                 angle = self.max_angle
             elif (speed < 0):
