@@ -118,7 +118,6 @@ class SingleJointController(JointController):
         return max(1, int(round(spd_rad / self.VELOCITY_PER_TICK)))
 
     def set_torque_enable(self, torque_enable):
-        print("torque_enable: %s" %(torque_enable))
         mcv = (self.motor_id, torque_enable)
         self.dxl_io.set_multi_torque_enabled([mcv])
 
