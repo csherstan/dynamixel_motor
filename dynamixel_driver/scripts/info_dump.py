@@ -74,7 +74,7 @@ def print_data(values):
         Max Angle --------------- %(max)d
         Current Position -------- %(position)d
         Current Speed ----------- %(speed)d
-        Current Temperature ----- %(temperature)d%(degree_symbol)sC
+        Current Temperature ----- %(temperature)d
         Current Voltage --------- %(voltage).1fv
         Current Load ------------ %(load)d
         Moving ------------------ %(moving)s
